@@ -44,7 +44,9 @@ enum {
     OP_DIV,
     OP_SQRT,
     OP_POW,
-    OP_LAST, // workaround to get the enum size
+    CMD_QUIT,
+    CMD_DEL,
+    __LAST, // workaround to get the enum size
 };
 
 void rpn_operation(rpn_stack** stack, char* operator);
@@ -54,6 +56,8 @@ void op_mult(rpn_stack** stack, float* args);
 void op_div(rpn_stack** stack, float* args);
 void op_sqrt(rpn_stack** stack, float* args);
 void op_pow(rpn_stack** stack, float* args);
+void cmd_quit(rpn_stack** stack, float* args);
+void cmd_del(rpn_stack** stack, float* args);
 
 static const operator const operators_registry[] = {
     [OP_SUM] = {
@@ -85,6 +89,15 @@ static const operator const operators_registry[] = {
         id: "^",
         num_args: 2,
         function: op_pow,
+    },
+    [CMD_QUIT] = {
+        id: "q",
+        num_args: 0,
+        function: cmd_quit,
+    },
+    [CMD_DEL] = {
+        id: "\\",
+        num_args: 0,
+        function: cmd_del,
     }
 };
-

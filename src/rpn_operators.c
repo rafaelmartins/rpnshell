@@ -43,7 +43,7 @@
 void rpn_operation(rpn_stack** stack, char* op){
     float *args;
     const operator *tmp_op = NULL;
-    for(int i=0; i<OP_LAST; i++){
+    for(int i=0; i<__LAST; i++){
         if(strcmp(operators_registry[i].id, op) == 0){
             tmp_op = &(operators_registry[i]);
             break;
@@ -85,4 +85,14 @@ void op_sqrt(rpn_stack** stack, float* args){
 
 void op_pow(rpn_stack** stack, float* args){
     stack_push(stack, pow(args[1], args[0]));
+}
+
+void cmd_quit(rpn_stack** stack, float* args){
+    exit(0);
+}
+
+void cmd_del(rpn_stack** stack, float* args){
+    if(stack_count(*stack) > 0){
+        stack_pop(stack);
+    }
 }

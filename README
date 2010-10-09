@@ -1,0 +1,23 @@
+rpnshell
+--------
+
+rpnshell is a simple and easy-to-use calculator, that uses the Reverse
+Polish notation (http://en.wikipedia.org/wiki/Reverse_Polish_notation).
+
+
+Available operations
+~~~~~~~~~~~~~~~~~~~~
+
++ => addition
+- => subtraction
+* => multiplication
+/ => division
+sqrt => square root
+^ => power
+
+
+Available commands
+~~~~~~~~~~~~~~~~~~
+
+q => quit
+\ => delete the value on the top of the stack

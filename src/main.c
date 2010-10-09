@@ -60,7 +60,7 @@ extern void add_history();
 #include "rpn_operators.h"
 
 
-int main(){
+int main(int argc, char* argv){
     rpn_stack *stack = NULL;
     char *value, *piece, *err;
     float temp;
@@ -73,21 +73,26 @@ int main(){
 #ifdef HAVE_READLINE_HISTORY
         add_history(value);
 #endif
-        piece = strtok(value, " ");
-        while(piece != NULL){
-            temp = strtof(piece, &err);
-            if(temp == 0 && strcmp(piece, err) == 0){
-                rpn_operation(&stack, piece);
-            }
-            else{
-                if(err[0] == '\0'){
+        if(value[0] == '\0'){
+            float temp2 = stack_pop(&stack);
+            stack_push(&stack, temp2);
+            stack_push(&stack, temp2);
+        }
+        else{
+            piece = strtok(value, " ");
+            while(piece != NULL){
+                temp = strtof(piece, &err);
+                if(temp == 0 && strcmp(piece, err) == 0){
+                    rpn_operation(&stack, piece);
+                }
+                else if(err[0] == '\0'){
                     stack_push(&stack, temp);
                 }
                 else{
                     fprintf(stderr, "Error: Invalid operand '%s'.\n\n", piece);
                 }
+                piece = strtok(NULL, " ");
             }
-            piece = strtok(NULL, " ");
         }
         stack_print(stack);
     }
