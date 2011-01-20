@@ -34,3 +34,15 @@ PKG_CHECK_MODULES([LIBEDIT], [libedit])
 
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
+
+echo "
+	==== ${PACKAGE_STRING} ====
+	
+	prefix:      ${prefix}
+	exec_prefix: ${exec_prefix}
+	bindir:      ${bindir}
+	
+	compiler:    ${CC}
+	cflags:      ${CFLAGS}
+	ldflags:     ${LDFLAGS}
+"
