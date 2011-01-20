@@ -17,3 +17,4 @@ float stack_pop(rpn_stack **stack);
 float* stack_multipop(rpn_stack **stack, int size);
 int stack_count(rpn_stack *stack);
 void stack_print(rpn_stack *stack);
+void stack_free(rpn_stack **stack);

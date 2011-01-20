@@ -78,3 +78,10 @@ void stack_print(rpn_stack *stack){
     }
     free(aux2);
 }
+
+void stack_free(rpn_stack **stack){
+    while(*stack != NULL){
+        stack_pop(stack);
+    }
+    stack = NULL;
+}

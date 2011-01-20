@@ -53,6 +53,9 @@ int main(int argc, char* argv[]){
     history(hist, &ev, H_SETSIZE, 500);
     el_set(el, EL_HIST, history, hist);
     
+    // banner
+    printf(PACKAGE_STRING "   Copyright (C) 2010-2011 Rafael G. Martins\n\n");
+    
     // main loop
     tok = tok_init(NULL);
     while(1){
@@ -108,6 +111,9 @@ int main(int argc, char* argv[]){
     history_end(hist);
     tok_end(tok);
     el_end(el);
+    
+    // freeing stack
+    stack_free(&stack);
     
     return 0;
 }

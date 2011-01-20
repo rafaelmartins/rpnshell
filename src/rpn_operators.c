@@ -39,6 +39,7 @@ void rpn_operation(rpn_stack** stack, const char* op){
         return;
     }
     tmp_op->function(stack, args);
+    free(args);
 }
 
 
