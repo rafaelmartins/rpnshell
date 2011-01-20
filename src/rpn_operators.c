@@ -60,11 +60,11 @@ void op_div(rpn_stack** stack, long double* args){
 }
 
 void op_sqrt(rpn_stack** stack, long double* args){
-    stack_push(stack, sqrtf(args[0]));
+    stack_push(stack, sqrtl(args[0]));
 }
 
 void op_pow(rpn_stack** stack, long double* args){
-    stack_push(stack, pow(args[1], args[0]));
+    stack_push(stack, powl(args[1], args[0]));
 }
 
 void cmd_quit(rpn_stack** stack, long double* args){
