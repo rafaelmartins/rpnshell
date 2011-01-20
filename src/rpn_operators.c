@@ -20,7 +20,7 @@
 
 
 void rpn_operation(rpn_stack** stack, const char* op){
-    float *args;
+    long double *args;
     const operator *tmp_op = NULL;
     for(int i=0; i<__LAST; i++){
         if(strcmp(operators_registry[i].id, op) == 0){
@@ -43,35 +43,35 @@ void rpn_operation(rpn_stack** stack, const char* op){
 }
 
 
-void op_sum(rpn_stack** stack, float* args){
+void op_sum(rpn_stack** stack, long double* args){
     stack_push(stack, args[1] + args[0]);
 }
 
-void op_sub(rpn_stack** stack, float* args){
+void op_sub(rpn_stack** stack, long double* args){
     stack_push(stack, args[1] - args[0]);
 }
 
-void op_mult(rpn_stack** stack, float* args){
+void op_mult(rpn_stack** stack, long double* args){
     stack_push(stack, args[1] * args[0]);
 }
 
-void op_div(rpn_stack** stack, float* args){
+void op_div(rpn_stack** stack, long double* args){
     stack_push(stack, args[1] / args[0]);
 }
 
-void op_sqrt(rpn_stack** stack, float* args){
+void op_sqrt(rpn_stack** stack, long double* args){
     stack_push(stack, sqrtf(args[0]));
 }
 
-void op_pow(rpn_stack** stack, float* args){
+void op_pow(rpn_stack** stack, long double* args){
     stack_push(stack, pow(args[1], args[0]));
 }
 
-void cmd_quit(rpn_stack** stack, float* args){
+void cmd_quit(rpn_stack** stack, long double* args){
     exit(0);
 }
 
-void cmd_del(rpn_stack** stack, float* args){
+void cmd_del(rpn_stack** stack, long double* args){
     if(stack_count(*stack) > 0){
         stack_pop(stack);
     }

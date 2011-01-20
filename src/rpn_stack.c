@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include "rpn_stack.h"
 
-void stack_push(rpn_stack **stack, float value){
+void stack_push(rpn_stack **stack, long double value){
     rpn_stack *node = malloc(sizeof(rpn_stack)); 
     if(node == NULL){
         fprintf(stderr, "Error: stack overflow.\n");
@@ -27,25 +27,25 @@ void stack_push(rpn_stack **stack, float value){
     }
 }
 
-float stack_pop(rpn_stack **stack){
+long double stack_pop(rpn_stack **stack){
     if(*stack == NULL){
         fprintf(stderr, "Error: stack underflow.\n");
         abort();
     }
     else{
         rpn_stack *top = *stack;
-        float value = top->value;
+        long double value = top->value;
         *stack = top->next;
         free(top);
         return value;
     }
 }
 
-float* stack_multipop(rpn_stack **stack, int size){
+long double* stack_multipop(rpn_stack **stack, int size){
     if(stack_count(*stack) < size){
         return NULL;
     }
-    float *rv = (float *) malloc(sizeof(float) * size);
+    long double *rv = (long double *) malloc(sizeof(long double) * size);
     for(int i=0; i<size; i++){
         rv[i] = stack_pop(stack);
     }
@@ -72,7 +72,7 @@ void stack_print(rpn_stack *stack){
     }
     free(aux1);
     while(aux2 != NULL){
-        printf("%i: %f\n", count, aux2->value);
+        printf("%i: %Lf\n", count, aux2->value);
         aux2 = aux2->next;
         count--;
     }

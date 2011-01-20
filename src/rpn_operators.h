@@ -9,7 +9,7 @@
 typedef struct{
     char* id;
     int num_args;
-    void (*function)(rpn_stack** stack, float* args);
+    void (*function)(rpn_stack** stack, long double* args);
 } operator;
 
 enum {
@@ -25,14 +25,14 @@ enum {
 };
 
 void rpn_operation(rpn_stack** stack, const char* op);
-void op_sum(rpn_stack** stack, float* args);
-void op_sub(rpn_stack** stack, float* args);
-void op_mult(rpn_stack** stack, float* args);
-void op_div(rpn_stack** stack, float* args);
-void op_sqrt(rpn_stack** stack, float* args);
-void op_pow(rpn_stack** stack, float* args);
-void cmd_quit(rpn_stack** stack, float* args);
-void cmd_del(rpn_stack** stack, float* args);
+void op_sum(rpn_stack** stack, long double* args);
+void op_sub(rpn_stack** stack, long double* args);
+void op_mult(rpn_stack** stack, long double* args);
+void op_div(rpn_stack** stack, long double* args);
+void op_sqrt(rpn_stack** stack, long double* args);
+void op_pow(rpn_stack** stack, long double* args);
+void cmd_quit(rpn_stack** stack, long double* args);
+void cmd_del(rpn_stack** stack, long double* args);
 
 static const operator const operators_registry[] = {
     [OP_SUM] = {

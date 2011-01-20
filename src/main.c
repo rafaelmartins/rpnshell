@@ -34,7 +34,7 @@ int main(int argc, char* argv[]){
     Tokenizer *tok;
     
     // initialize common variables
-    float temp;
+    long double temp;
     int tok_argc;
     const char *line, **tok_argv;
     char *err;
@@ -79,7 +79,7 @@ int main(int argc, char* argv[]){
         
         // evaluating tokens
         for(int i=0; i<tok_argc; i++){
-            temp = strtof(tok_argv[i], &err);
+            temp = strtold(tok_argv[i], &err);
             
             // operator
             if(temp == 0 && strcmp(tok_argv[i], err) == 0){

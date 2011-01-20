@@ -8,13 +8,13 @@
 
 
 typedef struct _stack {
-    float value;
+    long double value;
     struct _stack *next;
 } rpn_stack;
 
-void stack_push(rpn_stack **stack, float value);
-float stack_pop(rpn_stack **stack);
-float* stack_multipop(rpn_stack **stack, int size);
+void stack_push(rpn_stack **stack, long double value);
+long double stack_pop(rpn_stack **stack);
+long double* stack_multipop(rpn_stack **stack, int size);
 int stack_count(rpn_stack *stack);
 void stack_print(rpn_stack *stack);
 void stack_free(rpn_stack **stack);
