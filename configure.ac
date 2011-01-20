@@ -1,6 +1,7 @@
 AC_PREREQ(2.68)
 
 AC_INIT([rpnshell], [0.1], [rafael@rafaelmartins.eng.br])
+AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_MACRO_DIR([m4])
 
 AM_INIT_AUTOMAKE([foreign no-dist-gzip dist-bzip2 subdir-objects])
