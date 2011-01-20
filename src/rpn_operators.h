@@ -49,7 +49,7 @@ enum {
     __LAST, // workaround to get the enum size
 };
 
-void rpn_operation(rpn_stack** stack, char* operator);
+void rpn_operation(rpn_stack** stack, const char* op);
 void op_sum(rpn_stack** stack, float* args);
 void op_sub(rpn_stack** stack, float* args);
 void op_mult(rpn_stack** stack, float* args);
@@ -96,7 +96,7 @@ static const operator const operators_registry[] = {
         function: cmd_quit,
     },
     [CMD_DEL] = {
-        id: "\\",
+        id: "d",
         num_args: 0,
         function: cmd_del,
     }

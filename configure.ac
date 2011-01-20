@@ -16,15 +16,12 @@ AS_IF([test "x$ac_cv_prog_cc_c99" = "xno"], [
   AC_MSG_ERROR([no C99 compiler found.])
 ])
 
-AX_LIB_READLINE
-AS_IF([test "x$ax_cv_lib_readline" = "xno"], [
-  AC_MSG_ERROR([no readline library found.])
-])
-
-AC_FUNC_MALLOC
 for f in sqrtf pow; do
   AC_SEARCH_LIBS([$f], [m], , AC_MSG_ERROR([$f not found in -lm.]))
 done
+
+PKG_PROG_PKG_CONFIG
+PKG_CHECK_MODULES([LIBEDIT], [libedit])
 
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT

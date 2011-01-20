@@ -31,6 +31,10 @@
  * 
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif /* HAVE_CONFIG_H */
+
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -40,7 +44,7 @@
 #include "rpn_operators.h"
 
 
-void rpn_operation(rpn_stack** stack, char* op){
+void rpn_operation(rpn_stack** stack, const char* op){
     float *args;
     const operator *tmp_op = NULL;
     for(int i=0; i<__LAST; i++){
