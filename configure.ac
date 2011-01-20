@@ -12,7 +12,9 @@ LT_PREREQ([2.2.4])
 LT_INIT
 
 AC_PROG_CC_C99
-AC_PROG_INSTALL
+AS_IF([test "x$ac_cv_prog_cc_c99" = "xno"], [
+  AC_MSG_ERROR([no C99 compiler found.])
+])
 
 AX_LIB_READLINE
 AS_IF([test "x$ax_cv_lib_readline" = "xno"], [
