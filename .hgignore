@@ -23,7 +23,6 @@ stamp-h1
 ltmain.sh
 
 m4/*
-!m4/ax_lib_readline.m4
 
 src/.*
 
