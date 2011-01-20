@@ -27,4 +27,3 @@ rpnshell_LDADD = \
 	$(LIBEDIT_LIBS)
 
 EXTRA_DIST = bootstrap.sh
-dist_doc_DATA = NEWS COPYING README AUTHORS
