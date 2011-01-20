@@ -3,7 +3,7 @@ AC_PREREQ(2.68)
 AC_INIT([rpnshell], [0.1], [rafael@rafaelmartins.eng.br])
 AC_CONFIG_MACRO_DIR([m4])
 
-AM_INIT_AUTOMAKE([1.11])
+AM_INIT_AUTOMAKE([foreign no-dist-gzip dist-bzip2 subdir-objects])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 AC_CONFIG_HEADERS([config.h])
 
@@ -17,8 +17,6 @@ AX_LIB_READLINE
 AS_IF([test "x$ax_cv_lib_readline" = "xno"], [
   AC_MSG_ERROR([no readline library found.])
 ])
-
-AC_CHECK_HEADERS([stdlib.h string.h])
 
 AC_FUNC_MALLOC
 for f in sqrtf pow; do
