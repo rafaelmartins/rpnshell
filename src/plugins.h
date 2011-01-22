@@ -8,13 +8,21 @@
 
 typedef struct{
     char* filepath;
+    char* identifier;
     void* handler;
-} plugin;
+} plugin_t;
 
 typedef struct{
-    int pluginc;
-    plugin* pluginv;
-} plugin_list;
+    size_t size;
+    plugin_t* array;
+} plugin_l;
 
-const char* plugin_path(void);
-plugin_list* plugin_lookup(const char* plugin_path);
+
+plugin_l* init_plugin_l(void);
+void free_plugin_l(plugin_l **l);
+char* plugin_identifier(char* path);
+void append_plugin_l(plugin_l **l, plugin_t* p);
+void* load_object_from_plugin(plugin_t *p, const char* name);
+void load_plugins_from_path(plugin_l **pl, const char* path);
+void plugin_lookup(plugin_l **pl, int argc, char** argv);
+void print_loaded_plugins(plugin_l *pl);

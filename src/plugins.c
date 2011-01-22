@@ -15,53 +15,102 @@
 #include <glob.h>
 #include <dlfcn.h>
 #include <string.h>
-#include <sys/stat.h>
+#include <rpn_stack.h>
 #include "plugins.h"
+#include "plugin.h"
 
 
-const char* plugin_path(void){
-    struct stat st;
-    if(stat("./plugins/" LT_OBJDIR, &st) == 0){
-        if(S_ISDIR(st.st_mode)){
-            return "./plugins/" LT_OBJDIR;
+plugin_l* init_plugin_l(void){
+    plugin_l *l = (plugin_l*) malloc(sizeof(plugin_l));
+    l->size = 0;
+    l->array = NULL;
+    return l;
+}
+
+void free_plugin_l(plugin_l **l){
+    free((*l)->array);
+    free(*l);
+    l = NULL;
+}
+
+char* plugin_identifier(char* path){
+    for(int i=strlen(path)-1; i>=0; i--){
+        if(path[i] == '/'){
+            return &(path[i+1]);
         }
     }
-    if(stat(PKGLIBDIR, &st) == 0){
-        if(S_ISDIR(st.st_mode)){
-            return PKGLIBDIR;
+    return NULL;
+}
+
+void append_plugin_l(plugin_l **l, plugin_t* p){
+    int found = 0;
+    for(int i=0; i<(*l)->size; i++){
+        if(strcmp(p->identifier, (*l)->array[i].identifier) == 0){
+            found = 1;
         }
     }
-    fprintf(stderr, "Error: Unable to find the plugins directory!\n");
-    exit(EXIT_FAILURE);
+    if(found == 0){
+        (*l)->array = realloc((*l)->array, ((*l)->size + 1) * sizeof(plugin_t));
+        memcpy(&(*l)->array[(*l)->size++], p, sizeof(plugin_t));
+    }
+}
+
+void* load_object_from_plugin(plugin_t *p, const char* name){
+    dlerror();
+    void *rv = dlsym(p->handler, name);
+    char* error;
+    if((error = dlerror()) != NULL){
+        fprintf(stderr, "%s\n", error);
+        exit(EXIT_FAILURE);
+    }
+    return rv;
+}
+
+void load_plugins_from_path(plugin_l **pl, const char* path){
+    glob_t buf;
+    plugin_t *p;
+    char* pt = (char*) malloc((strlen(path) + 6) * sizeof(char));
+    sprintf(pt, "%s/*.so", path);
+    if(glob(pt, 0, NULL, &buf) != 0){
+        return; //ignore
+    }
+    for(int i=0; i<buf.gl_pathc; i++){
+        plugin_t *p = (plugin_t*) malloc(sizeof(plugin_t));
+        p->filepath = (char*) malloc((strlen(buf.gl_pathv[i]) + 1) * sizeof(char));
+        strcpy(p->filepath, buf.gl_pathv[i]);
+        p->handler = dlopen(p->filepath, RTLD_LAZY);
+        //p->identifier = *((char**) load_object_from_plugin(p, "identifier"));
+        p->identifier = plugin_identifier(p->filepath);
+        append_plugin_l(pl, p);
+    }
+    free(pt);
+    globfree(&buf);
 }
 
 
-plugin_list* plugin_lookup(const char* plugin_path){
-    glob_t buf;
-    char* path = (char*) malloc((strlen(plugin_path) + 6) * sizeof(char));
-    sprintf(path, "%s/*.so", plugin_path);
-    if(glob(path, 0, NULL, &buf) != 0){
-        fprintf(stderr, "Error: Failed to find plugins!\n");
+void plugin_lookup(plugin_l **pl, int argc, char** argv){
+    for(int i=1; i<argc; i++){
+        load_plugins_from_path(pl, argv[i]);
+    }
+    load_plugins_from_path(pl, "plugins/" LT_OBJDIR);
+    load_plugins_from_path(pl, PKGLIBDIR);
+    if((*pl)->size == 0){
+        fprintf(stderr, "No plugin found!\n");
         exit(EXIT_FAILURE);
     }
-    plugin_list* list = (plugin_list*) malloc(sizeof(plugin_list));
-    list->pluginc = 0;
-    list->pluginv = NULL;
-    for(list->pluginc=0; list->pluginc<buf.gl_pathc; list->pluginc++){
-        list->pluginv = realloc(list->pluginv, (list->pluginc + 1) * sizeof(plugin));
-        list->pluginv[list->pluginc].filepath = (char*) malloc(
-            (strlen(buf.gl_pathv[list->pluginc]) + 1) * sizeof(char));
-        strcpy(list->pluginv[list->pluginc].filepath,
-            buf.gl_pathv[list->pluginc]);
-        list->pluginv[list->pluginc].handler = dlopen(
-            list->pluginv[list->pluginc].filepath, RTLD_LAZY);
-        if(!list->pluginv[list->pluginc].handler){
-            fprintf(stderr, "%s\n", dlerror());
-            exit(EXIT_FAILURE);
+}
+
+void print_loaded_plugins(plugin_l *pl){
+    char* name;
+    for(int i=0; i<pl->size; i++){
+        name = ((plugin*)load_object_from_plugin(&(pl->array[i]), "metadata"))->name;
+        if(i < (pl->size -1)){
+            printf("%s, ", name);
+        }
+        else{
+            printf("%s.\n", name);
         }
     }
-    globfree(&buf);
-    return list;
 }
 
 

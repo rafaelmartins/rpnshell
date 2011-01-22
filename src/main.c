@@ -14,35 +14,53 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <histedit.h>
-#include "rpn_stack.h"
-#include "rpn_operators.h"
+#include <rpn_stack.h>
 #include "plugins.h"
 #include "plugin.h"
+#include <rpn_operators.h>
+
 
 char* prompt(EditLine *e) {
     return PACKAGE_NAME "> ";
 }
 
+void rpn_operation(rpn_stack** stack, plugin_l* list, const char* op){
+    long double *args;
+    plugin *metadata;
+    operator_t *tmp_op = NULL;
+    for(int i=0; i<list->size; i++){
+        metadata = (plugin*) load_object_from_plugin(&(list->array[i]), "metadata");
+        for(int j=0; j<metadata->size; j++){
+            if(strcmp(metadata->operators[j].id, op) == 0){
+                tmp_op = &(metadata->operators[j]);
+                break;
+            }
+        }
+        if(tmp_op != NULL){
+            break;
+        }
+    }
+    if(tmp_op == NULL){
+        fprintf(stderr, "Error: Invalid operator '%s'.\n\n", op);
+        return;
+    }
+    args = stack_multipop(stack, tmp_op->num_args);
+    if(args == NULL){
+        fprintf(stderr, "Error: Invalid number of arguments. "
+            "'%s' requires %i arguments.\n\n", op, tmp_op->num_args);
+        return;
+    }
+    tmp_op->function(stack, args);
+    free(args);
+}
 
-#include <dlfcn.h>
 int main(int argc, char* argv[]){
     
     // Initialize RPN stack
     rpn_stack *stack = NULL;
-
-    plugin_list *list = plugin_lookup(plugin_path());
-    plugin_metadata *inf;
-    char* error;
-    void (*func)(void);
-    for(int i=0; i<list->pluginc; i++){
-        func = dlsym(list->pluginv[i].handler, "teste");
-        if((error = dlerror()) != NULL){
-            fprintf(stderr, "%s\n", error);
-            exit(1);
-        }
-        (*func)();
-        //printf ("%s\n%s\n\n", inf->name, inf->help);
-    }
+    
+    plugin_l *pl = init_plugin_l();
+    plugin_lookup(&pl, argc, argv);
     
     // Initialize libedit variables
     EditLine *el;
@@ -71,7 +89,10 @@ int main(int argc, char* argv[]){
     el_set(el, EL_HIST, history, hist);
     
     // banner
-    printf(PACKAGE_STRING "   Copyright (C) 2010-2011 Rafael G. Martins\n\n");
+    printf(PACKAGE_STRING "   Copyright (C) 2010-2011 Rafael G. Martins\n");
+    printf("Loaded plugins: ");
+    print_loaded_plugins(pl);
+    printf("\n");
     
     // main loop
     tok = tok_init(NULL);
@@ -98,7 +119,7 @@ int main(int argc, char* argv[]){
             
             // operator
             if(temp == 0 && strcmp(tok_argv[i], err) == 0){
-                rpn_operation(&stack, err);
+                rpn_operation(&stack, pl, err);
             }
             
             // valid number
@@ -129,6 +150,9 @@ int main(int argc, char* argv[]){
     
     // freeing stack
     stack_free(&stack);
+    
+    // freeing plugin list
+    free_plugin_l(&pl);
     
     return 0;
 }

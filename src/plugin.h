@@ -6,8 +6,19 @@
  * See the file COPYING.
  */
 
+typedef struct{
+    const char* id;
+    int num_args;
+    void (*function)(rpn_stack** stack, long double* args);
+} operator_t;
+
 
 typedef struct{
     const char* name;
+    const char* author;
+    const char* license;
     const char* help;
-} plugin_metadata;
+    int size;
+    const operator_t const operators[];
+} plugin;
+

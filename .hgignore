@@ -3,6 +3,7 @@ syntax: glob
 *~
 *.o
 *.lo
+*.la
 
 .deps
 
@@ -26,5 +27,6 @@ ltmain.sh
 m4/*
 
 src/.*
+lib/.*
 
 rpnshell*

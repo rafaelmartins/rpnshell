@@ -36,7 +36,9 @@ AC_SEARCH_LIBS([dlopen], [dl dld], [], [
 PKG_PROG_PKG_CONFIG
 PKG_CHECK_MODULES([LIBEDIT], [libedit])
 
-AC_CONFIG_FILES([Makefile plugins/Makefile])
+AC_SUBST([lt_cv_objdir])
+
+AC_CONFIG_FILES([Makefile lib/Makefile plugins/Makefile src/Makefile])
 AC_OUTPUT
 
 echo "
@@ -50,3 +52,4 @@ echo "
 	cflags:      ${CFLAGS}
 	ldflags:     ${LDFLAGS}
 "
+
