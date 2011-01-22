@@ -13,6 +13,7 @@ typedef struct _stack {
 } rpn_stack;
 
 void stack_push(rpn_stack **stack, long double value);
+void stack_repush(rpn_stack **stack);
 long double stack_pop(rpn_stack **stack);
 long double* stack_multipop(rpn_stack **stack, int size);
 int stack_count(rpn_stack *stack);

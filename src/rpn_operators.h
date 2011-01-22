@@ -7,7 +7,7 @@
  */
 
 typedef struct{
-    char* id;
+    const char* id;
     int num_args;
     void (*function)(rpn_stack** stack, long double* args);
 } operator;

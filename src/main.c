@@ -71,10 +71,8 @@ int main(int argc, char* argv[]){
         tok_str(tok, line, &tok_argc, &tok_argv);
         
         // empty line
-        if(tok_argc == 0 && stack != NULL){
-            temp = stack_pop(&stack);
-            stack_push(&stack, temp);
-            stack_push(&stack, temp);
+        if(tok_argc == 0){
+            stack_repush(&stack);
         }
         
         // evaluating tokens

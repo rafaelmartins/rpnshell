@@ -27,6 +27,13 @@ void stack_push(rpn_stack **stack, long double value){
     }
 }
 
+void stack_repush(rpn_stack **stack){
+    if(*stack == NULL){
+        return;
+    }
+    stack_push(stack, (*stack)->value);
+}
+
 long double stack_pop(rpn_stack **stack){
     if(*stack == NULL){
         fprintf(stderr, "Error: stack underflow.\n");
