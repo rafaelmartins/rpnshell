@@ -29,10 +29,14 @@ for f in sqrtf pow; do
   AC_SEARCH_LIBS([$f], [m], , AC_MSG_ERROR([$f not found in -lm.]))
 done
 
+AC_SEARCH_LIBS([dlopen], [dl dld], [], [
+  AC_MSG_ERROR([unable to find the dlopen() function])
+])
+
 PKG_PROG_PKG_CONFIG
 PKG_CHECK_MODULES([LIBEDIT], [libedit])
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile plugins/Makefile])
 AC_OUTPUT
 
 echo "

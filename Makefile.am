@@ -6,8 +6,10 @@
 # See the file COPYING.
 #
 
+SUBDIRS = plugins
 
 ACLOCAL_AMFLAGS = -I m4
+AM_CFLAGS = $(all_includes) -DPKGLIBDIR=\"@libdir@/@PACKAGE@\"
 
 bin_PROGRAMS = rpnshell
 
@@ -15,6 +17,8 @@ rpnshell_SOURCES = \
 	src/main.c \
 	src/rpn_stack.c \
 	src/rpn_operators.c \
+	src/plugins.c \
+	src/plugins.h \
 	src/rpn_stack.h \
 	src/rpn_operators.h
 

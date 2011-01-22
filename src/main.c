@@ -16,16 +16,33 @@
 #include <histedit.h>
 #include "rpn_stack.h"
 #include "rpn_operators.h"
-
+#include "plugins.h"
+#include "plugin.h"
 
 char* prompt(EditLine *e) {
     return PACKAGE_NAME "> ";
 }
 
+
+#include <dlfcn.h>
 int main(int argc, char* argv[]){
     
     // Initialize RPN stack
     rpn_stack *stack = NULL;
+
+    plugin_list *list = plugin_lookup(plugin_path());
+    plugin_metadata *inf;
+    char* error;
+    void (*func)(void);
+    for(int i=0; i<list->pluginc; i++){
+        func = dlsym(list->pluginv[i].handler, "teste");
+        if((error = dlerror()) != NULL){
+            fprintf(stderr, "%s\n", error);
+            exit(1);
+        }
+        (*func)();
+        //printf ("%s\n%s\n\n", inf->name, inf->help);
+    }
     
     // Initialize libedit variables
     EditLine *el;
