@@ -6,6 +6,8 @@
  * See the file COPYING.
  */
 
+#ifndef RPN_STACK_H
+#define RPN_STACK_H
 
 typedef struct _stack {
     long double value;
@@ -19,3 +21,5 @@ long double* stack_multipop(rpn_stack **stack, int size);
 int stack_count(rpn_stack *stack);
 void stack_print(rpn_stack *stack);
 void stack_free(rpn_stack **stack);
+
+#endif /* RPN_STACK_H */

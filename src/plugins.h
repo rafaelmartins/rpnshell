@@ -6,6 +6,9 @@
  * See the file COPYING.
  */
 
+#ifndef PLUGINS_H
+#define PLUGINS_H
+
 typedef struct{
     char* filepath;
     char* identifier;
@@ -26,3 +29,5 @@ void* load_object_from_plugin(plugin_t *p, const char* name);
 void load_plugins_from_path(plugin_l **pl, const char* path);
 void plugin_lookup(plugin_l **pl, int argc, char** argv);
 void print_loaded_plugins(plugin_l *pl);
+
+#endif /* PLUGINS_H */

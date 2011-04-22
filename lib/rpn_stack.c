@@ -12,7 +12,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "rpn_stack.h"
+#include <rpn_stack.h>
 
 void stack_push(rpn_stack **stack, long double value){
     rpn_stack *node = malloc(sizeof(rpn_stack)); 

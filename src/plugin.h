@@ -6,6 +6,9 @@
  * See the file COPYING.
  */
 
+#ifndef PLUGIN_H
+#define PLUGIN_H
+
 typedef struct{
     const char* id;
     int num_args;
@@ -22,3 +25,4 @@ typedef struct{
     const operator_t const operators[];
 } plugin;
 
+#endif /* PLUGIN_H */

@@ -1,3 +1,11 @@
+#
+# rpnshell: A RPN-based calculator to the command-line interface.
+# Copyright (C) 2010-2011 Rafael G. Martins <rafaelmartins@gentoo.org>
+#
+# This program can be distributed under the terms of the BSD License.
+# See the file COPYING.
+#
+
 AM_CFLAGS = $(all_includes) -I$(top_srcdir)/src -I$(top_srcdir)/lib
 AM_LDFLAGS = -avoid-version -module -shared -export-dynamic
 

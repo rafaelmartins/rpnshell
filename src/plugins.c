@@ -16,8 +16,8 @@
 #include <dlfcn.h>
 #include <string.h>
 #include <rpn_stack.h>
-#include "plugins.h"
-#include "plugin.h"
+#include <plugins.h>
+#include <plugin.h>
 
 
 plugin_l* init_plugin_l(void){

@@ -7,11 +7,13 @@
 #
 
 bin_PROGRAMS = rpnshell
+pkginclude_HEADERS = plugin.h
 
 rpnshell_SOURCES = \
 	main.c \
 	plugins.c \
-	plugins.h
+	plugins.h \
+	$(top_srcdir)/lib/rpn_stack.h
 
 rpnshell_CFLAGS = \
 	$(AM_CFLAGS) \

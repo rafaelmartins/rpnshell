@@ -15,9 +15,8 @@
 #include <stdlib.h>
 #include <histedit.h>
 #include <rpn_stack.h>
-#include "plugins.h"
-#include "plugin.h"
-#include <rpn_operators.h>
+#include <plugins.h>
+#include <plugin.h>
 
 
 char* prompt(EditLine *e) {
