@@ -25,8 +25,13 @@ rpnshell_core_la_SOURCES = \
 	$(top_srcdir)/include/plugin.h \
 	$(top_srcdir)/include/rpn_stack.h
 
+rpnshell_core_la_LIBADD = \
+	$(top_builddir)/lib/librpnshell.la
+
 rpnshell_helpers_la_SOURCES = \
 	helpers.c \
 	$(top_srcdir)/include/plugin.h \
 	$(top_srcdir)/include/rpn_stack.h
 
+rpnshell_helpers_la_LIBADD = \
+	$(top_builddir)/lib/librpnshell.la

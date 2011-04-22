@@ -1,0 +1,12 @@
+# Package Information for pkg-config (build external plugins)
+
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: rpnshell
+Description: A RPN-based calculator to the command-line interface. 
+Version: @VERSION@
+Libs: -L${libdir} -lrpnshell
+Cflags: -I${includedir}/rpnshell

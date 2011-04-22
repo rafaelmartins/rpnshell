@@ -29,4 +29,6 @@ m4/*
 src/.*
 lib/.*
 
-rpnshell*
+rpnshell
+rpnshell_*
+rpnshell.pc

@@ -7,5 +7,8 @@
 #
 
 SUBDIRS = include lib plugins src
-EXTRA_DIST = bootstrap.sh
+EXTRA_DIST = bootstrap.sh rpnshell.pc.in
 ACLOCAL_AMFLAGS = -I m4
+
+pkgconfigdir = $(libdir)/pkgconfig
+pkgconfig_DATA = rpnshell.pc

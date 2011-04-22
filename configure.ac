@@ -38,7 +38,7 @@ PKG_CHECK_MODULES([LIBEDIT], [libedit])
 
 AC_SUBST([lt_cv_objdir])
 
-AC_CONFIG_FILES([Makefile include/Makefile lib/Makefile plugins/Makefile src/Makefile])
+AC_CONFIG_FILES([Makefile include/Makefile lib/Makefile plugins/Makefile src/Makefile rpnshell.pc])
 AC_OUTPUT
 
 echo "
