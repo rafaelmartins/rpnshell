@@ -101,7 +101,7 @@ void plugin_lookup(plugin_l **pl, int argc, char** argv){
 }
 
 void print_loaded_plugins(plugin_l *pl){
-    char* name;
+    const char* name;
     for(int i=0; i<pl->size; i++){
         name = ((plugin*)load_object_from_plugin(&(pl->array[i]), "metadata"))->name;
         if(i < (pl->size -1)){

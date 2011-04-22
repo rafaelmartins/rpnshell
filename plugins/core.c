@@ -7,7 +7,6 @@
  */
 
 #include <math.h>
-#include <rpn_stack.h>
 #include <plugin.h>
 
 

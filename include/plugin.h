@@ -9,6 +9,8 @@
 #ifndef PLUGIN_H
 #define PLUGIN_H
 
+#include "rpn_stack.h"
+
 typedef struct{
     const char* id;
     int num_args;

@@ -7,18 +7,17 @@
 #
 
 bin_PROGRAMS = rpnshell
-pkginclude_HEADERS = plugin.h
 
 rpnshell_SOURCES = \
 	main.c \
 	plugins.c \
 	plugins.h \
-	$(top_srcdir)/lib/rpn_stack.h
+	$(top_srcdir)/include/rpn_stack.h
 
 rpnshell_CFLAGS = \
 	$(AM_CFLAGS) \
 	$(LIBEDIT_CFLAGS)\
-	-I$(top_srcdir)/lib \
+	-I$(top_srcdir)/include \
 	-DPKGLIBDIR=\"@libdir@/@PACKAGE@\"
 
 rpnshell_LDADD = \

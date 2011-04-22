@@ -6,9 +6,17 @@
 # See the file COPYING.
 #
 
-pkginclude_HEADERS = rpn_stack.h 
 lib_LTLIBRARIES = librpnshell.la
 
-librpnshell_la_SOURCES = rpn_stack.c
-librpnshell_la_LDFLAGS = -version-info 0:0:0
+librpnshell_la_SOURCES = \
+	rpn_stack.c \
+	$(top_srcdir)/include/rpn_stack.h
+
+librpnshell_la_CFLAGS = \
+	$(AM_CFLAGS) \
+	-I$(top_srcdir)/include
+
+librpnshell_la_LDFLAGS = \
+	$(AM_LDADD) \
+	-version-info 0:0:0
 

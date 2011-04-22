@@ -26,7 +26,7 @@ char* prompt(EditLine *e) {
 void rpn_operation(rpn_stack** stack, plugin_l* list, const char* op){
     long double *args;
     plugin *metadata;
-    operator_t *tmp_op = NULL;
+    const operator_t *tmp_op = NULL;
     for(int i=0; i<list->size; i++){
         metadata = (plugin*) load_object_from_plugin(&(list->array[i]), "metadata");
         for(int j=0; j<metadata->size; j++){

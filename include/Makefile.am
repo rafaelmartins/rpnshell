@@ -6,6 +6,7 @@
 # See the file COPYING.
 #
 
-SUBDIRS = include lib plugins src
-EXTRA_DIST = bootstrap.sh
-ACLOCAL_AMFLAGS = -I m4
+pkginclude_HEADERS = \
+	plugin.h \
+	rpn_stack.h
+
