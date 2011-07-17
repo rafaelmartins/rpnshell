@@ -20,7 +20,7 @@ void cmd_del(rpn_stack** stack, long double* args){
     }
 }
 
-plugin metadata = {
+const plugin metadata = {
     name: "helpers",
     author: "Rafael G. Martins",
     license: "BSD",
@@ -30,11 +30,13 @@ plugin metadata = {
         {
             id: "q",
             num_args: 0,
+            help: "quit",
             function: cmd_quit,
         },
         {
             id: "d",
             num_args: 0,
+            help: "delete last value",
             function: cmd_del,
         }
     }

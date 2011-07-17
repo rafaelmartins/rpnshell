@@ -13,7 +13,8 @@
 
 typedef struct{
     const char* id;
-    int num_args;
+    const int num_args;
+    const char* help;
     void (*function)(rpn_stack** stack, long double* args);
 } operator_t;
 
@@ -23,7 +24,7 @@ typedef struct{
     const char* author;
     const char* license;
     const char* help;
-    int size;
+    const int size;
     const operator_t const operators[];
 } plugin;
 

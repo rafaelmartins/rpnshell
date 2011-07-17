@@ -11,6 +11,7 @@
 #endif /* HAVE_CONFIG_H */
 
 #include <string.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <histedit.h>
@@ -25,7 +26,7 @@ char* prompt(EditLine *e) {
 
 void rpn_operation(rpn_stack** stack, plugin_l* list, const char* op){
     long double *args;
-    plugin *metadata;
+    plugin *metadata = NULL;
     const operator_t *tmp_op = NULL;
     for(int i=0; i<list->size; i++){
         metadata = (plugin*) load_object_from_plugin(&(list->array[i]), "metadata");
@@ -57,7 +58,10 @@ int main(int argc, char* argv[]){
     
     // Initialize RPN stack
     rpn_stack *stack = NULL;
+    bool print_stack;
     
+    // Initialize plugin stuff
+    plugin *metadata = NULL;
     plugin_l *pl = init_plugin_l();
     plugin_lookup(&pl, argc, argv);
     
@@ -88,7 +92,7 @@ int main(int argc, char* argv[]){
     el_set(el, EL_HIST, history, hist);
     
     // banner
-    printf(PACKAGE_STRING "   Copyright (C) 2010-2011 Rafael G. Martins\n");
+    printf(PACKAGE_STRING "\tCopyright (C) 2010-2011 Rafael G. Martins\n");
     printf("Loaded plugins: ");
     print_loaded_plugins(pl);
     printf("\n");
@@ -96,6 +100,7 @@ int main(int argc, char* argv[]){
     // main loop
     tok = tok_init(NULL);
     while(1){
+        print_stack = true;
         line = el_gets(el, NULL);
         
         // ^D
@@ -118,7 +123,32 @@ int main(int argc, char* argv[]){
             
             // operator
             if(temp == 0 && strcmp(tok_argv[i], err) == 0){
-                rpn_operation(&stack, pl, err);
+                
+                // help
+                if(strcmp("help", err) == 0){
+                    printf("Available plugins:\n\n");
+                    for(int j=0; j<pl->size; j++){
+                        metadata = (plugin*) load_object_from_plugin(&(pl->array[j]),
+                            "metadata");
+                        printf("%s: %s\n", metadata->name, metadata->help);
+                        printf("    Author: %s\n", metadata->author);
+                        printf("    License: %s\n", metadata->license);
+                        printf("    Operators:\n");
+                        for(int k=0; k<metadata->size; k++){
+                            printf("        %s (%s - %i args)\n",
+                                metadata->operators[k].id,
+                                metadata->operators[k].help,
+                                metadata->operators[k].num_args);
+                        }
+                        printf("\n");
+                    }
+                    print_stack = false;
+                }
+                
+                // rpn operation
+                else{
+                    rpn_operation(&stack, pl, err);
+                }
             }
             
             // valid number
@@ -132,8 +162,10 @@ int main(int argc, char* argv[]){
             }
         }
         
-        // print stack
-        stack_print(stack);
+        if(print_stack){
+            // print stack
+            stack_print(stack);
+        }
         
         // add line to history
         history(hist, &ev, H_ENTER, line);
