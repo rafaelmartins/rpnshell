@@ -92,11 +92,7 @@ int main(int argc, char* argv[]){
     el_set(el, EL_HIST, history, hist);
     
     // banner
-    printf(PACKAGE_STRING
-#ifdef HGTIP
-    "/" HGTIP
-#endif
-     "\tCopyright (C) 2010-2011 Rafael G. Martins\n");
+    printf(FULL_STRING "\tCopyright (C) 2010-2011 Rafael G. Martins\n");
     printf("Loaded plugins: ");
     print_loaded_plugins(pl);
     printf("\n");

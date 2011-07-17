@@ -7,6 +7,6 @@ includedir=@includedir@
 
 Name: rpnshell
 Description: A RPN-based calculator to the command-line interface. 
-Version: @VERSION@
+Version: @FULL_VERSION@
 Libs: -L${libdir} -lrpnshell
 Cflags: -I${includedir}/rpnshell
