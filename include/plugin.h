@@ -1,6 +1,6 @@
 /**
  * rpnshell: A RPN-based calculator to the command-line interface.
- * Copyright (C) 2010-2011 Rafael G. Martins <rafaelmartins@gentoo.org>
+ * Copyright (C) 2010-2011 Rafael G. Martins <rafael@rafaelmartins.eng.br>
  *
  * This program can be distributed under the terms of the BSD License.
  * See the file COPYING.

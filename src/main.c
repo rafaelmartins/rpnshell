@@ -1,6 +1,6 @@
 /**
  * rpnshell: A RPN-based calculator to the command-line interface.
- * Copyright (C) 2010-2011 Rafael G. Martins <rafaelmartins@gentoo.org>
+ * Copyright (C) 2010-2011 Rafael G. Martins <rafael@rafaelmartins.eng.br>
  *
  * This program can be distributed under the terms of the BSD License.
  * See the file COPYING.
@@ -92,7 +92,11 @@ int main(int argc, char* argv[]){
     el_set(el, EL_HIST, history, hist);
     
     // banner
-    printf(PACKAGE_STRING "\tCopyright (C) 2010-2011 Rafael G. Martins\n");
+    printf(PACKAGE_STRING
+#ifdef HGTIP
+    "/" HGTIP
+#endif
+     "\tCopyright (C) 2010-2011 Rafael G. Martins\n");
     printf("Loaded plugins: ");
     print_loaded_plugins(pl);
     printf("\n");
@@ -135,10 +139,11 @@ int main(int argc, char* argv[]){
                         printf("    License: %s\n", metadata->license);
                         printf("    Operators:\n");
                         for(int k=0; k<metadata->size; k++){
-                            printf("        %s (%s - %i args)\n",
+                            printf("        %s (%s - %i argument%s)\n",
                                 metadata->operators[k].id,
                                 metadata->operators[k].help,
-                                metadata->operators[k].num_args);
+                                metadata->operators[k].num_args,
+                                metadata->operators[k].num_args > 1 ? "s": "");
                         }
                         printf("\n");
                     }
