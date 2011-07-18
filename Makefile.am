@@ -6,7 +6,7 @@
 # See the file COPYING.
 #
 
-SUBDIRS = include lib plugins src
+SUBDIRS = src plugins
 EXTRA_DIST = bootstrap.sh rpnshell.pc.in
 ACLOCAL_AMFLAGS = -I m4
 

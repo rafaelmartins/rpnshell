@@ -6,23 +6,56 @@
 # See the file COPYING.
 #
 
+
+### definitions ###
+
+# instalable headers
+pkginclude_HEADERS = \
+	plugin.h \
+	rpn_stack.h
+
+# binary
 bin_PROGRAMS = rpnshell
 
+# library
+lib_LTLIBRARIES = librpnshell.la
+
+
+### sources ###
+
+# binary
 rpnshell_SOURCES = \
-	main.c \
+	rpnshell.c \
 	plugins.c \
 	plugins.h \
-	$(top_srcdir)/include/rpn_stack.h
+	rpn_stack.h
 
+# library
+librpnshell_la_SOURCES = \
+	rpn_stack.c \
+	rpn_stack.h
+
+
+### cflags ###
+
+# binary
 rpnshell_CFLAGS = \
 	$(AM_CFLAGS) \
-	$(LIBEDIT_CFLAGS)\
-	-I$(top_srcdir)/include \
-	-I$(top_srcdir) \
+	$(LIBEDIT_CFLAGS) \
+        -I$(top_srcdir) \
 	-DPKGLIBDIR=\"@libdir@/@PACKAGE@\"
 
+
+### ldflags ###
+
+# binary
 rpnshell_LDADD = \
 	$(AM_LDADD) \
 	$(LIBEDIT_LIBS) \
-	$(top_builddir)/lib/librpnshell.la
+	librpnshell.la
+
+# library
+librpnshell_la_LDFLAGS = \
+	$(AM_LDADD) \
+	-version-info $(LT_VERSION_INFO)
 

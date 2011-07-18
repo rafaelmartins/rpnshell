@@ -6,9 +6,35 @@
 # See the file COPYING.
 #
 
+
+### definitions ###
+
+pkglib_LTLIBRARIES = \
+	rpnshell_core.la \
+	rpnshell_helpers.la
+
+
+### sources ###
+
+rpnshell_core_la_SOURCES = \
+	core.c \
+	$(top_srcdir)/src/plugin.h \
+	$(top_srcdir)/src/rpn_stack.h
+
+rpnshell_helpers_la_SOURCES = \
+	helpers.c \
+	$(top_srcdir)/src/plugin.h \
+	$(top_srcdir)/src/rpn_stack.h
+
+
+### cflags ###
+
 AM_CFLAGS = \
-	$(all_includes)	\
-	-I$(top_srcdir)/include
+	$(all_includes) \
+	-I$(top_srcdir)/src
+
+
+### ldflags ###
 
 AM_LDFLAGS = \
 	-avoid-version \
@@ -16,22 +42,8 @@ AM_LDFLAGS = \
 	-shared \
 	-export-dynamic
 
-pkglib_LTLIBRARIES = \
-	rpnshell_core.la \
-	rpnshell_helpers.la
-
-rpnshell_core_la_SOURCES = \
-	core.c \
-	$(top_srcdir)/include/plugin.h \
-	$(top_srcdir)/include/rpn_stack.h
-
 rpnshell_core_la_LIBADD = \
-	$(top_builddir)/lib/librpnshell.la
-
-rpnshell_helpers_la_SOURCES = \
-	helpers.c \
-	$(top_srcdir)/include/plugin.h \
-	$(top_srcdir)/include/rpn_stack.h
+	$(top_builddir)/src/librpnshell.la
 
 rpnshell_helpers_la_LIBADD = \
-	$(top_builddir)/lib/librpnshell.la
+	$(top_builddir)/src/librpnshell.la
