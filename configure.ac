@@ -13,6 +13,16 @@ AC_INIT([rpnshell], [0.1], [rafael@rafaelmartins.eng.br])
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_MACRO_DIR([m4])
 
+# code changed: REVISION++.
+# interface changed: CURRENT++, REVISION=0.
+# interface changed (backwards compatible): AGE++, else AGE=0.
+CURRENT=0
+AGE=0
+REVISION=1
+
+LT_VERSION_INFO="$CURRENT:$REVISION:$AGE"
+AC_SUBST(LT_VERSION_INFO)
+
 AM_INIT_AUTOMAKE([foreign no-dist-gzip dist-bzip2 subdir-objects])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 AC_CONFIG_HEADERS([config.h])
@@ -37,13 +47,14 @@ else
   AC_DEFINE_UNQUOTED([HGTIP], ["$HGTIP"],
     [the changeset most recently added to the mercurial repository]
   )
-  AC_DEFINE_UNQUOTED([FULL_STRING], ["$FULL_STRING"],
-    [the PACKAGE_STRING with HGTIP]
-  )
-  AC_DEFINE_UNQUOTED([FULL_VERSION], ["$FULL_VERSION"],
-    [the PACKAGE_VERSION with HGTIP]
-  )
 fi
+
+AC_DEFINE_UNQUOTED([FULL_STRING], ["$FULL_STRING"],
+  [the PACKAGE_STRING with HGTIP]
+)
+AC_DEFINE_UNQUOTED([FULL_VERSION], ["$FULL_VERSION"],
+  [the PACKAGE_VERSION with HGTIP]
+)
 
 AC_PROG_CC_C99
 AS_IF([test "x$ac_cv_prog_cc_c99" = "xno"], [

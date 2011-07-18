@@ -18,5 +18,5 @@ librpnshell_la_CFLAGS = \
 
 librpnshell_la_LDFLAGS = \
 	$(AM_LDADD) \
-	-version-info 0:0:0
+	-version-info $(LT_VERSION_INFO)
 
