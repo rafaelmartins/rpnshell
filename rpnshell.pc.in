@@ -9,4 +9,5 @@ Name: rpnshell
 Description: A RPN-based calculator to the command-line interface. 
 Version: @FULL_VERSION@
 Libs: -L${libdir} -lrpnshell
+Libs.private: @LIBS@
 Cflags: -I${includedir}/rpnshell
