@@ -39,7 +39,6 @@ const plugin metadata = {
     author: "Rafael G. Martins",
     license: "BSD",
     help: "Basic operators for rpnshell",
-    size: 6,
     operators: {
         {
             id: "+",
@@ -76,6 +75,7 @@ const plugin metadata = {
             num_args: 2,
             help: "pow",
             function: op_pow,
-        }
+        },
+        {NULL, 0, NULL, NULL},
     }
 };

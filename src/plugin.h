@@ -9,6 +9,7 @@
 #ifndef PLUGIN_H
 #define PLUGIN_H
 
+#include <stdlib.h>  // for NULL, exit(3), etc.
 #include "rpn_stack.h"
 
 typedef struct{
@@ -24,7 +25,6 @@ typedef struct{
     const char* author;
     const char* license;
     const char* help;
-    const int size;
     const operator_t const operators[];
 } plugin;
 

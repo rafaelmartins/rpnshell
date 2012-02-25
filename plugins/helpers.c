@@ -6,7 +6,6 @@
  * See the file COPYING.
  */
 
-#include <stdlib.h>
 #include <plugin.h>
 
 
@@ -25,7 +24,6 @@ const plugin metadata = {
     author: "Rafael G. Martins",
     license: "BSD",
     help: "Basic helpers (quit, delete) for rpnshell",
-    size: 2,
     operators: {
         {
             id: "q",
@@ -38,6 +36,7 @@ const plugin metadata = {
             num_args: 0,
             help: "delete last value",
             function: cmd_del,
-        }
+        },
+        {NULL, 0, NULL, NULL},
     }
 };

@@ -30,7 +30,7 @@ void rpn_operation(rpn_stack** stack, plugin_l* list, const char* op){
     const operator_t *tmp_op = NULL;
     for(int i=0; i<list->size; i++){
         metadata = (plugin*) load_object_from_plugin(&(list->array[i]), "metadata");
-        for(int j=0; j<metadata->size; j++){
+        for(int j=0; metadata->operators[j].id != NULL; j++){
             if(strcmp(metadata->operators[j].id, op) == 0){
                 tmp_op = &(metadata->operators[j]);
                 break;
@@ -134,7 +134,7 @@ int main(int argc, char* argv[]){
                         printf("    Author: %s\n", metadata->author);
                         printf("    License: %s\n", metadata->license);
                         printf("    Operators:\n");
-                        for(int k=0; k<metadata->size; k++){
+                        for(int k=0; metadata->operators[k].id != NULL; k++){
                             printf("        %s (%s - %i argument%s)\n",
                                 metadata->operators[k].id,
                                 metadata->operators[k].help,
