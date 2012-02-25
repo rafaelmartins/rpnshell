@@ -61,12 +61,14 @@ AS_IF([test "x$ac_cv_prog_cc_c99" = "xno"], [
   AC_MSG_ERROR([no C99 compiler found.])
 ])
 
-for f in sqrtf pow; do
-  AC_SEARCH_LIBS([$f], [m], , AC_MSG_ERROR([$f not found in -lm.]))
+for f in sqrtl powl; do
+  AC_SEARCH_LIBS([$f], [m], [], [
+    AC_MSG_ERROR([unable to find the $f() function.])
+  ])
 done
 
 AC_SEARCH_LIBS([dlopen], [dl dld], [], [
-  AC_MSG_ERROR([unable to find the dlopen() function])
+  AC_MSG_ERROR([unable to find the dlopen() function.])
 ])
 
 PKG_PROG_PKG_CONFIG

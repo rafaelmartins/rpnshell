@@ -66,7 +66,7 @@ int stack_count(rpn_stack *stack){
         aux = aux->next;
         count++;
     }
-    free(aux);
+    stack_free(&aux);
     return count;
 }
 
@@ -77,13 +77,13 @@ void stack_print(rpn_stack *stack){
         stack_push(&aux2, aux1->value);
         aux1 = aux1->next;
     }
-    free(aux1);
+    stack_free(&aux1);
     while(aux2 != NULL){
         printf("%i: %Lf\n", count, aux2->value);
         aux2 = aux2->next;
         count--;
     }
-    free(aux2);
+    stack_free(&aux2);
 }
 
 void stack_free(rpn_stack **stack){
