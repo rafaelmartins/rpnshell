@@ -42,7 +42,7 @@ librpnshell_la_SOURCES = \
 rpnshell_CFLAGS = \
 	$(AM_CFLAGS) \
 	$(LIBEDIT_CFLAGS) \
-        -I$(top_srcdir) \
+	-I$(top_srcdir) \
 	-DPKGLIBDIR=\"@libdir@/@PACKAGE@\"
 
 
