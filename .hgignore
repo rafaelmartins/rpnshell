@@ -4,6 +4,7 @@ syntax: glob
 *.o
 *.lo
 *.la
+*.swp
 
 .deps
 
@@ -32,3 +33,6 @@ lib/.*
 rpnshell
 rpnshell_*
 rpnshell.pc
+
+doc/_build/*
+doc/conf.py

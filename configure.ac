@@ -78,7 +78,7 @@ AC_SUBST([lt_cv_objdir])
 AC_SUBST([FULL_STRING])
 AC_SUBST([FULL_VERSION])
 
-AC_CONFIG_FILES([Makefile plugins/Makefile src/Makefile rpnshell.pc])
+AC_CONFIG_FILES([Makefile plugins/Makefile src/Makefile rpnshell.pc doc/conf.py])
 AC_OUTPUT
 
 echo "
